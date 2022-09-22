@@ -13,10 +13,6 @@ class MainFragment : Fragment() {
 
     private var binding: FragmentMainBinding? = null
     private val mViewModel: MainViewModel by activityViewModels()
-//private val mViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
-
-    //    private val recAdapter: RecAdapter = RecAdapter(requireContext())
-//    private val recAdapter: RecAdapter = RecAdapter()
     private var recAdapter: RecAdapter = RecAdapter()
 
     override fun onCreateView(
