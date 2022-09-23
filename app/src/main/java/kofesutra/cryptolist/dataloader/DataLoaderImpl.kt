@@ -12,6 +12,7 @@ class DataLoaderImpl : DataLoader {
                 .orEmpty()
         } catch (e: Exception) {
             emptyList()
+
         }
     }
 }

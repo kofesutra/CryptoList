@@ -1,26 +1,20 @@
 package kofesutra.cryptolist.recycleradapter
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.load
-import kofesutra.cryptolist.MainActivity
 import kofesutra.cryptolist.R
 import kofesutra.cryptolist.databinding.CardViewBinding
 import kofesutra.cryptolist.model.Data
 import kofesutra.cryptolist.model.TransferData
 import kofesutra.cryptolist.recycleradapter.diffcallbacks.RecDiffCallBack
-import kofesutra.cryptolist.ui.details.DetailsViewModel
-
 
 class RecAdapter : ListAdapter<Data, RecAdapter.RecViewHolder>(RecDiffCallBack()) {
 
@@ -46,7 +40,7 @@ class RecAdapter : ListAdapter<Data, RecAdapter.RecViewHolder>(RecDiffCallBack()
         val highCutted = itemHere.high.substring(0..indexPlusHigh + 5)
         val highTimestamp = itemHere.high_timestamp
 
-        // Обработкик SVG
+        // SVG
         val context = holder.logo.context
         val svgImageLoader = ImageLoader.Builder(context)
             .components { add(SvgDecoder.Factory())
