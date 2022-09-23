@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CryptoList</string>
+    <string name="action_exit">Exit</string>
+    <string name="history_max">Historical max:</string>
+    <string name="current_price">Current price:</string>
+    <string name="high_timestamp">At the date:</string>
 </resources>

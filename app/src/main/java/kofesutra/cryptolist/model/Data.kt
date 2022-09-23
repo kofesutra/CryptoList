@@ -5,6 +5,7 @@ data class Data(
     var price: String,
     var logo_url: String,
     var high: String,
+    var high_timestamp: String,
     val idForDiff: Int = UNDEFINED_ID
 )
 {

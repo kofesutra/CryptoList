@@ -17,6 +17,7 @@ import kofesutra.cryptolist.MainActivity
 import kofesutra.cryptolist.R
 import kofesutra.cryptolist.databinding.CardViewBinding
 import kofesutra.cryptolist.model.Data
+import kofesutra.cryptolist.model.TransferData
 import kofesutra.cryptolist.recycleradapter.diffcallbacks.RecDiffCallBack
 import kofesutra.cryptolist.ui.details.DetailsViewModel
 
@@ -24,10 +25,9 @@ import kofesutra.cryptolist.ui.details.DetailsViewModel
 class RecAdapter : ListAdapter<Data, RecAdapter.RecViewHolder>(RecDiffCallBack()) {
 
     class RecViewHolder(binding: CardViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        val price: TextView = binding.itemPrice // Отображение цены
-        val nameOf: TextView = binding.itemName // Отображение названия
-        val logo: ImageView = binding.itemLogo // Отображение картинок
-
+        val price: TextView = binding.itemPrice
+        val nameOf: TextView = binding.itemName
+        val logo: ImageView = binding.itemLogo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecViewHolder {
@@ -37,7 +37,6 @@ class RecAdapter : ListAdapter<Data, RecAdapter.RecViewHolder>(RecDiffCallBack()
 
     override fun onBindViewHolder(holder: RecViewHolder, position: Int) {
 
-
         val itemHere = currentList[position]
         val indexPlus = itemHere.price.indexOf('.')
         holder.price.text = itemHere.price.substring(0 ..indexPlus+5)
@@ -45,11 +44,10 @@ class RecAdapter : ListAdapter<Data, RecAdapter.RecViewHolder>(RecDiffCallBack()
         val logoTemp: String = itemHere.logo_url
         val indexPlusHigh = itemHere.high.indexOf('.')
         val highCutted = itemHere.high.substring(0..indexPlusHigh + 5)
+        val highTimestamp = itemHere.high_timestamp
 
-
-
-        val context = holder.logo.context
         // Обработкик SVG
+        val context = holder.logo.context
         val svgImageLoader = ImageLoader.Builder(context)
             .components { add(SvgDecoder.Factory())
             }
@@ -60,12 +58,12 @@ class RecAdapter : ListAdapter<Data, RecAdapter.RecViewHolder>(RecDiffCallBack()
         }
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(holder.itemView.context, DetailsViewModel::class.java)
-            intent.putExtra(DetailsViewModel.intentPrice, holder.price.text)
-            intent.putExtra(DetailsViewModel.intentName, holder.nameOf.text)
-            intent.putExtra(DetailsViewModel.intentLogo, logoTemp)
-            intent.putExtra(DetailsViewModel.intentHigh, highCutted)
-            Navigation.findNavController(holder.itemView)!!.navigate(R.id.action_mainFragment_to_detailsFragment)
+            TransferData.intentName = holder.nameOf.text as String
+            TransferData.intentLogo = logoTemp
+            TransferData.intentPrice = holder.price.text as String
+            TransferData.intentHigh = highCutted
+            TransferData.intentHighTimestamp = highTimestamp
+            Navigation.findNavController(holder.itemView).navigate(R.id.action_mainFragment_to_detailsFragment)
         }
     }
 }

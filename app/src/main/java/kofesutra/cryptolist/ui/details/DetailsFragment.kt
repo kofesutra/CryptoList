@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
 import coil.ImageLoader
 import coil.decode.SvgDecoder
@@ -31,6 +32,10 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        mViewModel.st()
+
         val svgImageLoader = context?.let {
             ImageLoader.Builder(it)
                 .components { add(SvgDecoder.Factory()) }.build()
@@ -45,15 +50,16 @@ class DetailsFragment : Fragment() {
         mViewModel.logo2LD.observe(viewLifecycleOwner) {
             if (svgImageLoader != null) {
                 binding?.itemLogo2?.load(it, svgImageLoader) {
-                    size(300, 300)
+                    size(150, 150)
                 }
             }
         }
         mViewModel.priceHighLD.observe(viewLifecycleOwner) {
             binding?.itemHigh2?.text = it.toString()
         }
-
-
+        mViewModel.priceHighTimeLD.observe(viewLifecycleOwner) {
+            binding?.itemHighTime2?.text = it.toString()
+        }
     }
 
     override fun onDestroy() {
