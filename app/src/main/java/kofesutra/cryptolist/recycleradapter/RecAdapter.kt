@@ -51,6 +51,8 @@ class RecAdapter : ListAdapter<Data, RecAdapter.RecViewHolder>(RecDiffCallBack()
             size(80, 80)
         }
 
+//        println(itemHere)
+
         holder.itemView.setOnClickListener {
             TransferData.intentName = holder.nameOf.text as String
             TransferData.intentLogo = logoTemp
